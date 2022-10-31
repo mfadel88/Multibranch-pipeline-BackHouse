@@ -3,9 +3,6 @@ pipeline {
     // parameters{
     //     choice(name: 'ENV', choices: {'dev', 'test', 'prod','release'})
     // }
-    // environment {
-    //     dockerhub=credentials('Docker_Hub')
-    // }
     stages {
         stage('Build') {
      steps {

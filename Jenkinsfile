@@ -35,6 +35,7 @@ pipeline {
                 if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
                 withCredentials([file(credentialsId: 'JenkinsConfig-minikube', variable: 'cfg')]){
                             sh """
+                            export NUM=$(cat ../build)
                             mv Deployment/deploy.yaml Deployment/deploy
                             cat Deployment/deploy | envsubst > Deployment/deploy.yaml
                             rm -f Deployment/deploy

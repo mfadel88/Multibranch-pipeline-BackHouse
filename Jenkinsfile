@@ -1,5 +1,3 @@
-
-
 pipeline {
     agent { label 'slave1' }
     parameters{
@@ -9,7 +7,7 @@ pipeline {
         dockerhub=credentials('Docker_Hub')
     }
     stages {
-        stage('Build & Deploy') {
+        stage('Build') {
      steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
@@ -19,8 +17,17 @@ pipeline {
                         docker push mfadel8/app:$BUILD_NUMBER
                         echo ${BUILD_NUMBER} > ../build
                         """
-                } else if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
-                withCredentials([file(credentialsId: 'config', variable: 'cfg')]){
+                       }
+                }
+                 
+            }
+    
+    stages {
+        stage('Deploy') {
+     steps {
+            script {               
+            if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
+            withCredentials([file(credentialsId: 'config', variable: 'cfg')]){
                         sh """
                         if [-f build]; then
                             export BUILD_NUMBER=\$(cat ../build)

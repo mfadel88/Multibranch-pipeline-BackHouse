@@ -46,11 +46,11 @@ pipeline {
                 }
             }
         }
-    }
+    // }
 
     post {
         success {
             echo 'This will run only if successful'
         }
     }
-}
+// }

@@ -32,14 +32,9 @@ pipeline {
         stage('Deploy') {
         steps {
                 script {               
-                // if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
-                withCredentials([file(credentialsId: 'config', variable: 'cfg')]){
+                if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
+                withCredentials([file(credentialsId: 'JenkinsConfig-minikube', variable: 'cfg')]){
                             sh """
-                            if [-f build]; then
-                                export BUILD_NUMBER=\$(cat ../build)
-                            else
-                                export BUILD_NUMBER=0
-                            fi
                             mv Deployment/deploy.yaml Deployment/deploy
                             cat Deployment/deploy | envsubst > Deployment/deploy.yaml
                             rm -f Deployment/deploy
@@ -52,7 +47,7 @@ pipeline {
                     }
                 }
         
-    // }
+    }
 
     // post {
     //     success {

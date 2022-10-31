@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'slave1' }
     // parameters{
-    //     choice(name: 'ENV', choices: {'dev', 'test', 'prod','release'})
+    //     choice(name: 'ENV', choices: {'dev', 'test', 'prod','main'})
     // }
     stages {
         stage('Build') {

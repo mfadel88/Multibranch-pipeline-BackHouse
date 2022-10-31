@@ -1,16 +1,16 @@
 pipeline {
     agent { label 'slave1' }
-    parameters{
-        choice(name: 'ENV', choices: {'dev', 'test', 'prod','release'})
-    }
+    // parameters{
+    //     choice(name: 'ENV', choices: {'dev', 'test', 'prod','release'})
+    // }
     environment {
         dockerhub=credentials('Docker_Hub')
     }
     stages {
         stage('Build') {
      steps {
-                script {
-                    if (env.BRANCH_NAME == 'main') {
+                // script {
+                //     if (env.BRANCH_NAME == 'main') {
                         sh """
                         docker login -u $dockerhub_USR -p $dockerhub_PSW
                         docker build -t mfadel8/app:$BUILD_NUMBER .
@@ -25,8 +25,8 @@ pipeline {
     stages {
         stage('Deploy') {
      steps {
-            script {               
-            if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
+            // script {               
+            // if (env.BRANCH_NAME == 'prod' || env.BRANCH_NAME == 'dev' || env.BRANCH_NAME == 'test') {
             withCredentials([file(credentialsId: 'config', variable: 'cfg')]){
                         sh """
                         if [-f build]; then

@@ -3,16 +3,17 @@ pipeline {
     // parameters{
     //     choice(name: 'ENV', choices: {'dev', 'test', 'prod','release'})
     // }
-    environment {
-        dockerhub=credentials('Docker_Hub')
-    }
+    // environment {
+    //     dockerhub=credentials('Docker_Hub')
+    // }
     stages {
         stage('Build') {
      steps {
                 script {
+                     withCredentials([usernamePassword(credentialsId: 'dockerHub-cred', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     if (env.BRANCH_NAME == 'main') {
                         sh """
-                        docker login -u $dockerhub_USR -p $dockerhub_PSW
+                        docker login -u $user -p $pass
                         docker build -t mfadel8/app:$BUILD_NUMBER .
                         docker push mfadel8/app:$BUILD_NUMBER
                         echo ${BUILD_NUMBER} > ../build

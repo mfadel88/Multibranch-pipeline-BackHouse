@@ -40,8 +40,8 @@ pipeline {
                         kubectl apply --kubeconfig=${cfg} -f Deployment/service.yaml
                         kubectl apply --kubeconfig=${cfg} -f Deployment/deploy.yaml
                         """
-                 }
-                } 
+                        }
+                    } 
 
                 }
             }

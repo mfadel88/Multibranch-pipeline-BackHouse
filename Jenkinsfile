@@ -23,7 +23,7 @@ pipeline {
             }
         
         } 
-    }
+    
 
     
         stage('Deploy') {
@@ -55,5 +55,5 @@ pipeline {
     //     success {
     //         echo 'This will run only if successful'
     //     }
-    // }
+     }
 }

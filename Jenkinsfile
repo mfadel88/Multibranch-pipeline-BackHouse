@@ -18,7 +18,9 @@ pipeline {
                         docker push mfadel8/app:$BUILD_NUMBER
                         echo ${BUILD_NUMBER} > ../build
                         """
+                    
                        }
+                     }
                 }
                  
             }
